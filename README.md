@@ -1,1 +1,1 @@
-# hate_speech_detection
+Hate Speech Detection identifies the type of the text as a hate speech, offensive language or neither of the two.
