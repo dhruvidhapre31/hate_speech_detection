@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hate Speech Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+  </head>
+    
+  <body>
+    <div class="contact-us">
+      <div>
+        <h3>Hate Speech Detection for Tweet</h3>
+        <p>Test your tweet to find whether it represents hateful speech or offensive language or none of the two.</p>
+      </div>
+
+      {% if result != "" %}
+      <div class = "output" id="output">
+        <h5>{{result}}</h5>
+      </div>
+      {% endif %}
+
+      <form action="/predict", method="post", id="form">  
+        <label for="inputTweet">Enter your tweet<em>&#x2a;</em></label>
+        <textarea id="inputTweet" name="inputTweet" required="" rows="2"></textarea>
+        <button id="test" onclick="hideForm()">TEST</button>
+      </form>
+    </div>
+    <script>
+      
+      document.getElementById("output").style.display="none";
+      function hideForm(){
+        document.getElementById("form").style.display="none";
+        document.getElementById("output").style.display="block";
+      }
+    </script>
+  </body>
+</html> 
