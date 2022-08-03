@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from sklearn.feature_extraction.text import CountVectorizer
+import numpy as np
 import re
 import nltk
 from nltk.corpus import stopwords
@@ -22,8 +23,10 @@ def load_page():
     if request.method == 'POST':
         tweet = request.form['inputTweet']
         result = prediction(tweet)
-        print(result)
+        print(type(result))
         result = "The tweet represents " + result
+        print(result)
+        result = str(result)
         return render_template('index.html', result=str(result))
     
 def prediction(text):
@@ -31,14 +34,13 @@ def prediction(text):
     cv = pickle.load(open('cv_model.sav', 'rb'))
     test = cv.transform([clean_text]).toarray()
     dt_cv = pickle.load(open('dt_model.sav', 'rb'))
-    
     return dt_cv.predict(test)
 
 def remove_stopwords(text):
-    return ' '.join([word for word in str(text).split() if word not in STOPWORDS])
+    return ' '.join(word for word in str(text).split() if word not in STOPWORDS)
 
 def stemming(text):
-    return ' '.join([stemmer.stem(word) for word in str(text).split()])
+    return ' '.join(stemmer.stem(word) for word in str(text).split())
     
 def text_preprocessing(sen):
     sen = str(sen).lower()
